@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{% block title %}Tìm kiếm{%endblock%}
+{%block content%}
+  {%if not user.username%}
+  <p class="alert alert-danger">&nbsp;&nbsp;<a href="{%url 'user:login'%}"><b>Đăng nhập</b></a> để có thể booking</p>
+  {%endif%}
+  {% for field in shipment_info_list %}
+    <div class="card mt2 mb-2">
+      <div class="card-body">
+        <p class="card-text"><b>Nơi xuất phát: </b>{{field.routing.orgin_place.country_name}}({{field.routing.orgin_place.seaport_code}})</p>
+        <p class="card-text"><b> đến: </b>{{field.routing.destination_place.country_name}}({{field.routing.destination_place.seaport_code}})</p>
+        <p class="card-text"><b>Container: </b>{{field.type_container.size}} {{field.type_container.type_name}}</p>
+        <p class="card-text"><b>Giá: </b>{{field.price|floatformat:"-3g"}} VNĐ</p>
+        <p class="card-text"><b>Ngày khởi hành: </b>{{field.start_date|date:"j-n-Y"}}</p>
+      </div>
+      <div class="card-footer text-right">
+          <a href="{%url 'shipment_app:booking' field.id%}" class="btn btn-primary {%if not user.username%}disabled{%endif%}" >Đặt chuyến</a>
+      </div>
+    </div>
+      {% endfor %}
+    <ul class="pagination justify-content-center g-mt-28 g-mb-28">
+        {% for page_item in page_list%}
+        <li class="page-item {{page_item.enable|yesno:',disabled'}} {{page_item.active|yesno:'active,'}}">
+            <a class="page-link" href="?orginPlace={{search_data.orgin_code}}&destinationPlace={{search_data.destination_code}}&containerType={{search_data.container_type}}&page={{ page_item.page }}">{{page_item.display}}</a>
+        </li>
+        {% endfor%}
+    </ul>
+{%endblock%}

@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{% block title %}Đăng ký tài khoản{%endblock%}
+{% block search_shipment%}{%endblock%}
+{%block content%}
+    <form action="{%url 'user:register'%}" method="POST">
+        {% csrf_token %}
+      {% for field_name in form %}
+      <div class="form-group">
+        {{ field_name.label_tag }}
+          {{field_name.errors}}
+        {{ field_name }}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Đăng ký</button>
+    </form>
+{%endblock%}

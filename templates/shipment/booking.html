@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+{% block title %}Trang chủ{%endblock%}
+{% block search_shipment%}{%endblock%}
+{%block content%}
+  <form action="{%url 'shipment_app:booking_confirm'%}" method="GET">
+    <input type="hidden" name="shipmentId" value="{{shipment_info.id}}">
+    <div class="form-group">
+      <label>Nơi xuất phát:</label>
+      <input type="text" class="form-control" value="{{shipment_info.routing.orgin_place|safe}}" readonly>
+    </div>
+    <div class="form-group">
+      <label>Nơi đến:</label>
+      <input type="text" class="form-control" value="{{shipment_info.routing.destination_place|safe}}" readonly>
+    </div>
+    <div class="form-group">
+      <label>Kích cỡ container:</label>
+      <input type="text" class="form-control" value="{{shipment_info.type_container.size|safe}}" readonly>
+    </div>
+    <div class="form-group">
+      <label>Loại container:</label>
+      <input type="text" class="form-control" value="{{shipment_info.type_container.type_name|safe}}" readonly>
+    </div>
+    <div class="form-group">
+      <label>Đơn giá:</label>
+      <input type="number" class="form-control" value="{{shipment_info.price|safe}}" readonly>
+    </div>
+    <div class="form-group">
+      <label>Ngày khởi hành:</label>
+      <input type="text" class="form-control" value="{{shipment_info.start_date|date:'j-n-Y'}}" readonly>
+    </div>
+    <div class="form-group">
+      <label style="color:red; "><b>Số lượng:</b></label>
+      <input type="number" class="form-control" name="amount" required>
+    </div>
+    <button type="submit" class="btn btn-warning">Tiếp tục</button>
+  </form>
+{%endblock%}

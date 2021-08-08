@@ -1,0 +1,11 @@
+{%extends 'base.html'%}
+{% block title %}Trang chủ{%endblock%}
+{%block content%}
+{%if user.username%}
+<h1>Xin chào, {{user.username}}</h1>
+<a class="btn btn-primary" href="{%url 'user:logout'%}">Đăng xuất</a>
+{% else %}
+<h1>Xin chào.</h1><br>
+
+{% endif %}
+{%endblock%}

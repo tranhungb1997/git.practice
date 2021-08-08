@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+{% block title %}Đăng nhập{%endblock%}
+{% block search_shipment%}{%endblock%}
+{%block content%}
+    <form action="{%url 'user:login'%}" method="POST">
+      {%csrf_token%}
+        <span style="color:red;">{{form.non_field_errors.0}}</span>
+        {%for field in form%}
+            <div class="form-group">
+                {{field.label_tag}}
+                {{field.error}}
+                {{field}}
+            </div>
+        {%endfor%}
+        <p class="small text-muted">&nbsp;&nbsp;Nếu chưa có tài khoản thì đăng ký <a href="{% url 'user:register' %}">tại đây</a>.</p>
+      <button type="submit" class="btn btn-primary">Đăng nhập</button>
+    </form>
+{%endblock%}

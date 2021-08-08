@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Tài khoản {{booking.user.username}} đã book chuyến hàng thành công.</h3>
+        <h4>Thông tin tài khoản</h4>
+        <table class="table table-active ml-5" style="width: 80%;">
+            <tbody>
+                <tr>
+                    <td><b>Tài khoản: </b>{{booking.user.username}} </td>
+                </tr>
+                <tr>
+                    <td><b>Họ tên: </b>{{booking.user.first_name}} {{booking.user.last_name}}</td>
+                </tr>
+                <tr>
+                    <td><b>SĐT: </b>({{booking.user.phone_code}}){{booking.user.phone}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h4>Thông tin booking</h4>
+        <table class="table table-active ml-5" style="width: 80%;">
+            <tbody>
+                <tbody>
+                <tr>
+                    <td colspan="2"><b>Ngày booking: </b>{{today|date:'j-n-Y G:i'}}</td>
+                </tr>
+                <tr>
+                    <td><b>Nơi xuất phát: </b>{{booking.shipment_info.routing.orgin_place|safe}}</td>
+                    <td><b>Nơi đến: </b>{{booking.shipment_info.routing.destination_place|safe}}</td>
+                </tr>
+                <tr>
+                    <td><b>Kích cỡ container: </b>{{booking.shipment_info.type_container.size|safe}}</td>
+                    <td><b>Loại container: </b>{{booking.shipment_info.type_container.type_name|safe}}</td>
+                </tr>
+                <tr>
+                    <td><b>Số lượng: </b>{{booking.amount}}</td>
+                    <td><b>Đơn giá: </b>{{booking.shipment_info.price|floatformat:"-3g"}} VNĐ</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><b>Ngày khởi hành: </b>{{booking.shipment_info.start_date|date:'j-n-Y'}}</td>
+                </tr>
+            </tbody>
+            <tfoot style="height: 10px;">
+                <td class="text-right pr-3 text-danger" colspan="2"><small><b>*</b><i>giá có thể sẽ thay đổi</i></small>
+                </td>
+            </tfoot>
+        </table>
+    </div>
+</body>
+
+</html>

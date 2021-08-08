@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Email gửi khách hàng</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Quý khách đã booking thành công. Nhân viên chúng tôi sẽ gọi lại xác minh với Quý khách thủ tục thanh toán.
+        </h3>
+        <br>
+        <table class="table table-active ml-5" style="width: 80%;">
+            <tbody>
+                <tr>
+                    <td colspan="2"><b>Ngày booking: </b>{{today|date:'j-n-Y G:i'}}</td>
+                </tr>
+                <tr>
+                    <td><b>Nơi xuất phát: </b>{{booking.shipment_info.routing.orgin_place|safe}}</td>
+                    <td><b>Nơi đến: </b>{{booking.shipment_info.routing.destination_place|safe}}</td>
+                </tr>
+                <tr>
+                    <td><b>Kích cỡ container: </b>{{booking.shipment_info.type_container.size|safe}}</td>
+                    <td><b>Loại container: </b>{{booking.shipment_info.type_container.type_name|safe}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><b>Số lượng: </b>{{booking.amount}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><b>Ngày khởi hành: </b>{{booking.shipment_info.start_date|date:'j-n-Y'}}</td>
+                </tr>
+            </tbody>
+            <tfoot style="height: 10px;">
+                <td class="text-right pr-3 text-danger" colspan="2"><small><b>*</b> giá có thể sẽ thay đổi</small></td>
+            </tfoot>
+        </table>
+        <h4>Cảm ơn quý khách đã sử dụng dịch vụ.</h4>
+    </div>
+</body>
+
+</html>

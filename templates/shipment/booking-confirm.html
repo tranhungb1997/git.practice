@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+{% block title %}Trang chủ{%endblock%}
+{% block search_shipment%}{%endblock%}
+{%block content%}
+  <h1>XÁC NHẬN ĐƠN HÀNG:</h1>
+  <div class="container border row pb-2 pt-2 mb-2">
+    <div class="col-6">
+      <span><b>Nơi xuất phát:</b> {{booking.shipment_info.routing.orgin_place|safe}}</span></br>
+      <span><b>Nơi đến:</b> {{booking.shipment_info.routing.destination_place|safe}}</span></br>
+      <span><b>Kích cỡ container:</b> {{booking.shipment_info.type_container.size|safe}}</span></br>
+      <span><b>Loại container:</b> {{booking.shipment_info.type_container.type_name|safe}}</span></br>
+      <span><b>Ngày khởi hành:</b> {{booking.shipment_info.start_date|date:'j-n-Y'}}</span></br>
+    </div>
+    <div class="col-6">
+      <span><b>Số lượng:</b> {{booking.amount}}</span></br>
+      <span><b>Đơn giá:</b> {{booking.shipment_info.price|floatformat:"-3g"}} VNĐ</span></br>
+      <span><b>Thành tiền:</b> {{total|floatformat:"-3g"}} VNĐ</span></br>
+      <div class="mt-2 ml-2">
+        <form action="{%url 'shipment_app:booking_confirm'%}" id="form" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="shipmentId" value="{{booking.shipment_info.id}}">
+          <input type="hidden" name="amount" value="{{booking.amount}}">
+          <button type="button" id="submitButton" class="btn btn-success">Xác nhận</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{%endblock%}
+{%block custom_script%}
+  <script>
+    $('#submitButton').click(function(){
+      $(this).prop('disabled',true);
+      $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Đang xác nhận...")
+      $('#form').submit()
+    })
+  </script>
+{%endblock%}
